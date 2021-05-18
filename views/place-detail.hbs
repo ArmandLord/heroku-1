@@ -1,0 +1,19 @@
+<div class="container-fluid" style="height: 100px;"></div>
+
+<h2 class="text-center" style="color: #efb810;">{{name}}</h2>
+
+<p class="text-center">{{description}}</p>
+
+<div class="container-fluid" id='map' style='width: 800px; height: 300px;'></div>
+
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXJtYW5kZXYiLCJhIjoiY2tvc3d4ZXBlMDU0eTJ3cnJ1dWprNWhkdSJ9.oUs25a-4yp7SPk33PaZqTA';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11',
+    center: [{{location.coordinates}}],
+    zoom: 12
+  });
+
+  new mapboxgl.Marker().setLngLat([{{location.coordinates}}]).addTo(map)
+</script>

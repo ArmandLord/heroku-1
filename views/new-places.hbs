@@ -1,0 +1,56 @@
+<div class="container" style="height: 100px;">
+  <h1>1</h1>
+</div>
+
+<div class="container-fluid m-t4">
+  <h2 class="text-center">Agrega más campus de tus escuelas favoritas</h2>
+  <h5>Pasos:</h5>
+  <p>⓵ Busca tu campus en el mapa</p>
+  <p>⓶ Agrega un nombre y una descripción</p>
+  <p>¡Listo!</p>
+</div>
+
+<div class="container-fluid">
+  <form action="/places/add" method="post">
+    <div class="form-group">
+      <label for="name">Name:</label>
+      <input type="text" name="name" id="name">
+    </div>
+    <div class="form-group">
+      <label for="description">Description:</label>
+      <input type="text" name="description" id="description">
+      <input type="text" name="lat" id="lat" hidden>
+      <input type="text" name="lng" id="lng" hidden>
+    </div>
+    <button type="submit" class="btn btn-primary" >Add places</button>
+  </form>
+</div>
+<br>
+
+<div class="container" id='map' style='width: 800px; height: 500px;'></div>
+<script>
+  mapboxgl.accessToken = 'pk.eyJ1IjoiYXJtYW5kZXYiLCJhIjoiY2tvc3d4ZXBlMDU0eTJ3cnJ1dWprNWhkdSJ9.oUs25a-4yp7SPk33PaZqTA';
+  var map = new mapboxgl.Map({
+    container: 'map',
+    style: 'mapbox://styles/mapbox/streets-v11'
+  });
+
+  const gc = new MapboxGeocoder({
+    accessToken: mapboxgl.accessToken,
+    mapboxgl: mapboxgl
+  })
+
+  gc.on('result', e =>{
+    const {result: {center, text}} = e
+
+    const $nameInput = document.querySelector('#name')
+    $nameInput.setAttribute('placeholder', text)
+    document.querySelector('#lng').value = center[0]
+    document.querySelector('#lat').value = center[1]
+
+    document.querySelector('button').removeAttribute('disabled')
+  })
+
+  map.addControl(gc)
+  console.log(map.getCenter())
+</script>

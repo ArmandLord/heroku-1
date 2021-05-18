@@ -1,0 +1,36 @@
+<div class="container" style="height: 50pxpx;">
+<h1>1</h1>
+</div>
+<div class="container-fluid">
+  <div class="media-body ">
+    <h5 class="mt-5 m-l5 ">¡Encuentra todos los campus de la UNAM!</h5>
+    <p class="text-secondary">La Universidad Nacional Autónoma de México fue fundada el 21 de septiembre de 1551 con el nombre de la Real y Pontificia Universidad de México. Es la más grande e importante universidad de México e Iberoamérica. Tiene como propósito primordial estar al servicio del país y de la humanidad, formar profesionistas útiles a la sociedad, organizar y realizar investigaciones, principalmente acerca de las condiciones y problemas nacionales, y extender con la mayor amplitud posible, los beneficios de la cultura.</p> 
+  </div>
+  <img class="rounded mx-auto d-block" src="https://ep00.epimg.net/internacional/imagenes/2015/10/05/actualidad/1444077370_224931_1444077704_noticia_normal.jpg" alt="Rector Unam">
+</div>
+<h2 class="text-center mt-3">Explora los distintos Campus 👇🏻</h2>
+<div class="container-fluid mt-5" id='map' style='width: 800px; height: 500px;'></div>
+<ul class="list-group list-group-flush">
+  {{#each places}}
+    <li class="list-group-item"><a href="/places/{{_id}}">{{name}}</a></li>
+  {{/each}}
+</ul>
+
+  <script>
+    mapboxgl.accessToken = 'pk.eyJ1IjoiYXJtYW5kZXYiLCJhIjoiY2tvc3d4ZXBlMDU0eTJ3cnJ1dWprNWhkdSJ9.oUs25a-4yp7SPk33PaZqTA';
+    var map = new mapboxgl.Map({
+      container: 'map',
+      style: 'mapbox://styles/mapbox/streets-v11'
+    });
+
+    {{#each places}}
+      new mapboxgl.Marker().setLngLat([{{ location.coordinates }}]).addTo(map)
+    {{/each}}
+
+  </script> 
+
+
+{{!-- ⬇ esta posiciona en el mapa una hubicación --}}
+ {{!-- const marker = new mapboxgl.Marker()
+  .setLngLat([-99.1622182, 19.4211955])
+  .addTo(map); --}}
